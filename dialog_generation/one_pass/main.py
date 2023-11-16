@@ -4,9 +4,10 @@ import time
 
 from create_data import CreateData
 
-from statistics_and_final_processing.data_final_processing import DataFinalProcessing
-from statistics_and_final_processing.modal_particles_processing import ModalParticlesProcessing
-from statistics_and_final_processing.statistic_by_dims import StatisticByDims
+
+from postprocessing_and_statistics.statistic_by_dims import StatisticByDims
+from postprocessing_and_statistics.data_final_processing import DataFinalProcessing
+from postprocessing_and_statistics.modal_particles_processing import ModalParticlesProcessing
 
 if __name__ == '__main__':
     file_path = "out.jsonl"
