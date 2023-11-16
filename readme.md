@@ -1,15 +1,16 @@
 # 内容列表
 
-1. original_data_file
-2. topic_splitting
-3. source
+
+1. data
+2. build_topic_pool
+3. dialog_generation
 4. quality_assessment
-5. statistics_and_final_processing
+5. postprocessing_and_statistics
 
-## 第一部分：original_data_file
+## 第一部分：data
 
-#### 存放整个项目的原始资料文件
-
+#### 存放整个项目的原始资料文件以及以后处理的文件
+source_data
 资料文件要求：
 
 - 可以是word文档也可以是excel文档
@@ -18,7 +19,7 @@
 - 内容格式是一个长文本的形式
 - 可以有多个对象对应的文档，如吉莉相关文档，腾讯相关文档
 
-## 第二部分：topic_splitting
+## 第二部分：build_topic_pool
 
 #### 根据第一部分的资料分类梳理出话题池以及case，分别形成 JSON文件
 
@@ -56,7 +57,7 @@ case.json
  ]
 ~~~
 
-## 第三部分：source
+## 第三部分：dialog_generation
 
 #### 编写不同的prompt，制造不同类型的数据
 
@@ -83,7 +84,7 @@ prompt = f'''
                     我现在需要得到3份对话，现在开始生成。'''
 ~~~
 
-## 第四部分：quality_assessment
+## 第四部分：postprocessing_and_statistics
 
 #### 脚本去重以及人工质量检测
 
