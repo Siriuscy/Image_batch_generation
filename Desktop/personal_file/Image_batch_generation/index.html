@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+    <title>小红书自动生成工具</title>
+    <link rel="stylesheet" href="style.css">
+    <style id="dynamicFonts"></style> <!-- 添加动态字体样式 -->
+    <script>
+        window.fabric = require('fabric').fabric;
+        window.XLSX = require('xlsx');
+    </script>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="edit-bar">
+            <button id="export-template">导出模板格式</button>
+            <button id="autoGenerate">批量生成</button>
+            <button id="exportAllImages">导出所有图片</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <div class="editor-area">
+                <input type="file" id="backgroundUpload" accept="image/*">
+                <label for="backgroundUpload" class="upload-label">上传背景图</label>
+                <input type="file" id="imageUpload" accept="image/*" placeholder="上传图片">
+                <label for="imageUpload" class="upload-label">上传图片</label>
+                <button id="addText">添加单行文本</button>
+                <button id="addMultiLineText">添加区块文本</button>
+            </div>
+        </div>
+        <div class="canvas-container">
+            <!-- 在这里添加文本和图片 -->
+            <canvas id="canvas" width="600" height="800"></canvas> <!-- 3:4 ratio -->
+            <div class="canvas-navigation">
+                <button id="prevCanvas" class="nav-button" disabled>上一张</button>
+                <span id="canvasCounter">0 / 0</span>
+                <button id="nextCanvas" class="nav-button" disabled>下一张</button>
+            </div>
+            <button id="downloadCurrent" class="download-button" disabled>下载当前图片</button>
+        </div>
+        <div id="textPropertiesPanel" class="text-properties-panel" >
+            <h3>文本属性</h3>
+            <label for="fontSize">字体大小:</label>
+            <input type="number" id="fontSize" value="20"><br>
+            <label for="fontColor">字体颜色:</label>
+            <input type="color" id="fontColor" value="#000000"><br>
+            <label for="text-align">文本对齐:</label>
+            <select id="text-align">
+                <option value="left">左对齐</option>
+                <option value="center" selected>居中</option> <!-- 默认选择居中 -->
+                <option value="right">右对齐</option>
+            </select><br>
+            <label for="fontSelector">选择字体:</label>
+            <select id="fontSelector">
+                <!-- 字体选项将通过 JavaScript 动态添加 -->
+            </select>
+            <script src="src/dynamic_fonts.js"></script>
+        </div> 
+    </div>
+    <div id="overlay" ></div>
+    <!-- 导出面板 -->
+    <div id="export-panel" >
+        <h2>模板信息</h2>
+        <table id="canvas-info-table">
+            <thead>
+                <tr>
+                    <th>元素名称</th>
+                    <th>类型</th>
+                    <th>左边距</th>
+                    <th>上边距</th>
+                    <th>宽度</th>
+                    <th>高度</th>
+                    <th>字体颜色</th>
+                    <th>文本对齐</th>
+                    <th>内容</th>
+                </tr>
+            </thead>
+            <tbody id="canvas-info"></tbody> <!-- 用于填充对象信息 -->
+        </table>
+        <button id="download-excel">下载 Excel</button> <!-- 下载 Excel 按钮 -->
+        <button id="close-panel">关闭</button> <!-- 关闭面板按钮 -->
+    </div>
+
+    <!-- 批量生成面板 -->
+    <div id="batch-panel" class="modal-panel">
+        <h2>批量生成设置</h2>
+        <div class="input-group">
+            <label for="template-file">选择模板文件：</label>
+            <input type="file" id="template-file" accept=".xlsx">
+        </div>
+        <div class="input-group">
+            <label for="image-folder">选择图片文件夹：</label>
+            <input type="file" id="image-folder" webkitdirectory directory multiple>
+        </div>
+        <div class="button-group">
+            <button id="start-batch">开始生成</button>
+            <button id="close-batch-panel">关闭</button>
+        </div>
+    </div>
+
+    <script src="src/fun.js"></script>
+</body>
+</html>
